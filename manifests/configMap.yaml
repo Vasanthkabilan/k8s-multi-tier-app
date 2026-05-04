@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: configMap
+metadata: 
+  name: app-config
+  namespace: voting-app
+data: 
+  POSTGRES_DB: "votingdb"
+  POSTGRES_USER: "voteuser"
+  REDIS_HOST: "redis-service"
+  POSTGRES_HOST: "postgres-service"
