@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: db
   namespace: voting-app
 spec:
   replicas: 1
@@ -20,21 +20,11 @@ spec:
         ports:
         - containerPort: 5432
         env:
-        - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: POSTGRES_DB
         - name: POSTGRES_USER
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: POSTGRES_USER
+          value: "postgres"       
         - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: postgres-password
+        - name: POSTGRES_DB
+          value: "postgres"
         resources:
           requests:
             memory: "128Mi"
@@ -46,7 +36,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: db
   namespace: voting-app
 spec:
   selector:

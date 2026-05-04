@@ -21,10 +21,12 @@ spec:
         - containerPort: 80
         env:
         - name: REDIS
+          value: "redis-service" 
+        - name: REDIS_PASSWORD
           valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: REDIS_HOST
+            secretKeyRef:
+              name: app-secrets
+              key: redis-password
         resources:
           requests:
             memory: "64Mi"
